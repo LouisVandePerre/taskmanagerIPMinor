@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.com">
+<head>
+    <meta charset="UTF-8">
+
+    <title th:text="#{edit}"></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h1><span th:text="#{edit_Task}"/></h1>
+<h1> <span th:text="#{Welcome}"/> </h1>
+
+<nav>
+    <p><span th:text="#{ChangeLang}"/></p>
+    <select id="locales">
+        <option value=""></option>
+        <option value="en" th:text="#{lang.en}"></option>
+        <option value="nl" th:text="#{lang.nl}"></option>
+    </select>
+</nav>
+
+<form action="/editTask" method="post" th:object="${task}">
+
+    <label for="title"> <span th:text="#{Titel}"/> </label>
+    <input type="text" th:field="*{title}" placeholder="add title here" ><br>
+    <label for="description"> <span th:text="#{Description}"/> </label>
+    <input type="text" th:field="*{description}" placeholder="add description here"><br>
+    <label for="dateTime"><span th:text="#{DueDate}"/> </label>
+    <input type="datetime-local" th:field="*{dateTime}"><br>
+    <input type="hidden"  th:field="*{id}">
+    <input type="submit" value="submit">
+
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#locales").change(function () {
+            var selectedOption = $('#locales').val();
+            if (selectedOption != ''){
+                window.location.replace('?lang=' + selectedOption);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

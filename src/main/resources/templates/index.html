@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.com">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{Tasks}"></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<h1><span th:text="#{Task}"/></h1>
+<h1> <span th:text="#{Welcome}"/> </h1>
+
+<nav>
+    <p><span th:text="#{ChangeLang}"/></p>
+    <select id="locales">
+        <option value=""></option>
+        <option value="en" th:text="#{lang.en}"></option>
+        <option value="nl" th:text="#{lang.nl}"></option>
+    </select>
+</nav>
+
+    <div th:if="${!tasks.empty}">
+<ul class="tableTasks">
+<li th:each="task: ${tasks}">
+    Title: <span th:text="${task.title}"/> <br>
+    Deu date: <span th:text="${task.dateTime}"/> <br>
+    <a th:href="@{/tasks/__${task.getId()}__}"> <span th:text="#{details}"/> </a> <br>
+    <a th:href="@{/tasks/__${task.getId()}__/sub/create}"> <span th:text="#{add_subtask}"/> </a> <br>
+    <a th:href="@{/tasks/edit/__${task.getId()}__}"> <span th:text="#{edit}"/> </a> <br>
+</li>
+</ul>
+    </div>
+    <div th:if="${tasks.empty}"><span th:text="#{no_tasks_left}"/>  </div>
+    <a th:href="@{/tasks/new}"><span th:text="#{add_Task}"/></a> <br>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#locales").change(function () {
+            var selectedOption = $('#locales').val();
+            if (selectedOption != ''){
+                window.location.replace('tasks?lang=' + selectedOption);
+            }
+        });
+    });
+</script>
+</html>
