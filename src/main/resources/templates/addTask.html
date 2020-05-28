@@ -18,7 +18,7 @@
     </select>
 </nav>
 
-<form action="/addTask" method="post" th:object="${task}">
+<form action="/addTask" method="post" th:object="${taskDTO}">
 
     <label for="title"> <span th:text="#{Titel}"/> </label>
     <input type="text" th:field="*{title}" placeholder="add title here" ><br>

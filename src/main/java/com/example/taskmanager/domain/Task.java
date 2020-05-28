@@ -50,9 +50,6 @@ public class Task {
     }
 
     public void setDateTime(LocalDateTime dateTime) {
-        if(dateTime.isBefore(LocalDateTime.now())){
-            throw new IllegalArgumentException("date has already passed");
-        }
         this.dateTime = dateTime;
     }
 

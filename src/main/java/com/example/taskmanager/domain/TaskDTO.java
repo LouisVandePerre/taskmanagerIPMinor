@@ -4,16 +4,20 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
 public class TaskDTO {
-
+    @NotEmpty
     private String title;
+    @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime dateTime;
+    @NotEmpty
     private String description;
     private List<SubTask> subtasks;
     private UUID id;
@@ -82,6 +86,6 @@ public class TaskDTO {
     }
 
     public static TaskDTO toTaskDTO(Task task){
-        return new TaskDTO(task.getTitle(),task.getDateTime(),task.getTitle(),task.getSubtasks(),task.getId());
+        return new TaskDTO(task.getTitle(),task.getDateTime(),task.getDescription(),task.getSubtasks(),task.getId());
     }
 }
