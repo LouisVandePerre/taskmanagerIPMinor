@@ -3,6 +3,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.example.taskmanager.domain.SubTask;
 import com.example.taskmanager.domain.Task;
+import com.example.taskmanager.domain.TaskDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -19,6 +20,12 @@ class TaskTests {
         assertEquals("testtask", t.getTitle());
         assertEquals("testaskteron", t.getDescription());
         assertEquals(date, t.getDateTime());
+        TaskDTO taskDTO = TaskDTO.toTaskDTO(t);
+        assertEquals(taskDTO.getTitle(),t.getTitle());
+        assertEquals(taskDTO.getDescription(),t.getDescription());
+
+        assertEquals(taskDTO.getDeuDate(),"January 01 3030 at 01:01");
+        assertEquals(taskDTO.getDescription(),t.getDescription());
     }
     @Test
     void testSetters(){
@@ -35,11 +42,8 @@ class TaskTests {
 
     @Test
     void Illegalargumetns(){
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            Task t = new Task("testtask","testaskteron", LocalDateTime.of(2000,1,1,1,1));
 
-        });
-        exception = assertThrows(IllegalArgumentException.class, () -> {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             Task t = new Task("","testaskteron", LocalDateTime.of(3030,1,1,1,1));
         });
 

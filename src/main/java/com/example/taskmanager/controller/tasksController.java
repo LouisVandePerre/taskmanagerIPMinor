@@ -5,8 +5,10 @@ import com.example.taskmanager.domain.TaskDTO;
 import com.example.taskmanager.domain.TaskService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 
@@ -35,12 +37,15 @@ public class tasksController {
 
     @GetMapping("/tasks/new")
     public String goToAddTask(Model model){
-        model.addAttribute("task",new TaskDTO());
+        model.addAttribute("taskDTO",new TaskDTO());
         return "addTask";
     }
 
     @PostMapping("/addTask")
-    public String addTask(@ModelAttribute TaskDTO task){
+    public String addTask(@ModelAttribute @Valid TaskDTO task, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+           return "addTask";
+        }
         taskService.addTask(task);
         return "redirect:/tasks";
     }
